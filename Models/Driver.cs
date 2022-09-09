@@ -13,4 +13,10 @@
         public float qualifying_skill { get; set; }
 
     }
+
+    public class Presets
+    {
+        public List<string> countries { get; set; }
+        public List<string> liveries { get; set; }
+    }
 }
