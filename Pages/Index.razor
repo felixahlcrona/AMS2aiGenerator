@@ -1,9 +1,90 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+@using System.Xml.Linq
+@using AMS2aiGenerator.Models
+@using Microsoft.AspNetCore.Mvc
+@using System.Xml
 
-<h1>Hello, world!</h1>
+@inject IJSRuntime JSRuntime
 
-Welcome to your new app.
+<PageTitle>AMS2 </PageTitle>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+
+<div class="form-inline">
+    <h3>Copy XML file</h3>
+    <RadzenTextArea class="form-control" readonly type="text" value="@xmlOutput" />
+    <button type="button"   @onclick="CopyTextToClipboard">Generate XML file</button>
+</div>
+
+@if (driverListXML != null)
+{
+
+
+    <DriverTable driverList="@driverList"/>
+}
+<EditForm Model=@Person>
+    <label>livery_name</label>
+    <InputText @bind-Value=Person.livery_name />
+    <label>name</label>
+    <InputText  @bind-Value=Person.name  />
+    <label>country</label>
+    <InputText @bind-Value=Person.country />
+    <input type="submit" onclick="@SaveDriver" class="btn btn-primary" />
+</EditForm>
+
+
+
+
+
+
+
+
+@code {
+
+    public List<XElement> driverListXML = new List<XElement>();
+    public List<Driver> driverList = new List<Driver>();
+    public string xmlOutput = string.Empty;
+    Driver Person = new Driver();
+    public RadzenDataGrid<Driver> Grid;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+    private async Task CopyTextToClipboard()
+    {
+        var doc = new XDocument(
+      new XDeclaration("1.0", "utf-16", "yes"),
+      new XElement("custom_ai_drivers",
+      driverListXML));
+
+        xmlOutput = doc.Document.ToString(SaveOptions.DisableFormatting);
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", xmlOutput);
+    }
+
+
+
+
+
+    public async Task  SaveDriver()
+    {
+        Driver driver = (Driver)Person.Clone();
+        XElement element = new XElement("driver",
+     new XAttribute("livery_name", driver.livery_name));
+        element.Add(new XElement("name", driver.name));
+        element.Add(new XElement("country", driver.country));
+
+        driverListXML.Add(element);
+        driverList.Add(driver);
+
+    }
+
+ 
+
+
+
+  
+}
