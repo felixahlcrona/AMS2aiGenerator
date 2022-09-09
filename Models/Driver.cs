@@ -6,6 +6,7 @@
         {
             return this.MemberwiseClone();
         }
+        public string series { get; set; }
         public string livery_name { get; set; }
         public string name { get; set; }
         public string country { get; set; }
@@ -14,9 +15,13 @@
 
     }
 
-    public class Presets
+
+
+    public class PresetList
     {
-        public List<string> countries { get; set; }
-        public List<string> liveries { get; set; }
+        public string series { get; set; }
+        public string drivers { get; set; }
+        public string countries { get; set; }
+        public string liveries { get; set; }
     }
 }
