@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<custom_ai_drivers>
+  <driver livery_name="McLaren-Honda #1">
+    <name>das</name>
+    <country>d</country>
+  </driver>
+</custom_ai_drivers>

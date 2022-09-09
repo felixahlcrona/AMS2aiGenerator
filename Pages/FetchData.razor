@@ -1,0 +1,105 @@
+﻿@page "/fetchdata"
+
+<PageTitle>Weather forecast</PageTitle>
+
+@using AMS2aiGenerator.Data
+@using System.Xml.Linq
+@using Microsoft.AspNetCore.Mvc
+@using System.Xml
+@inject WeatherForecastService ForecastService
+@inject IJSRuntime JSRuntime
+
+
+<div class="form-inline">
+    <input class="form-control" readonly type="text" value="@Text" />
+    <CopyToClipboard Text="Copy this text" />
+    <button type="button" class="btn btn-primary" @onclick="CopyTextToClipboard">Copy</button>
+</div>
+<EditForm Model=@Person>
+
+    <label>livery_name</label>
+    <InputText @bind-Value=Person.livery_name />
+    <label>name</label>
+    <InputText  @bind-Value=Person.name  />
+
+    <label>country</label>
+    <InputText @bind-Value=Person.country />
+    <input type="submit" onclick="@SaveDriver" class="btn btn-primary" />
+</EditForm>
+@if (driverList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    foreach (var item in driverList)
+    {
+        <h1> @item.FirstAttribute.Value</h1>
+        foreach (var driver in item.Elements())
+        {
+            <p>@driver.Name : @driver.Value</p>
+        }
+    }
+
+ 
+}
+
+<h3>xml Content</h3>
+
+
+
+@code {
+
+
+
+    public List<XElement> driverList = new List<XElement>();
+    [Parameter] public string Text { get; set; }
+    Driver Person = new Driver();
+
+
+    private async Task CopyTextToClipboard()
+    {
+        var doc = new XDocument(
+      new XDeclaration("1.0", "utf-16", "yes"),
+      new XElement("custom_ai_drivers",
+      driverList));
+        //Text = doc.ToString();
+        Text = doc.Document.ToString(SaveOptions.DisableFormatting);
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", Text);
+    }
+   
+
+    public async Task AddDriverCustom(Driver Person)
+    {
+        XElement element = new XElement("driver",
+        new XAttribute("livery_name", Person.livery_name));
+        element.Add(new XElement("name", Person.name));
+        element.Add(new XElement("country", Person.country));
+
+        driverList.Add(element);
+
+    }
+
+    public void SaveDriver()
+    {
+        AddDriverCustom(Person);
+
+      
+
+    }
+
+ 
+
+
+    public class Driver
+    {
+        public string livery_name { get; set; }
+        public string name { get; set; }
+        public string country { get; set; }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+
+        //forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+}
