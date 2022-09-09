@@ -6,6 +6,7 @@
         {
             return this.MemberwiseClone();
         }
+        public Guid guid { get; set; }
         public string series { get; set; }
         public string livery_name { get; set; }
         public string name { get; set; }

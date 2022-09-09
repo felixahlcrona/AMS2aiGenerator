@@ -22,7 +22,7 @@
              AllowFiltering="true" @bind-Value="@Person.livery_name" Placeholder="livery_name"
              Data=@presetList.Where(e => e.series == Person?.series).Select(e=>e.liveries) FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" />
            
-             <RadzenTextBox @bind-Value=Person.name Placeholder="Name" />
+            <RadzenTextBox @bind-Value=Person.name Placeholder="Name" />
             <RadzenTextBox @bind-Value=Person.country Placeholder="Country" />
             </div>
             <div class="col-md-2">
@@ -40,7 +40,7 @@
                 </RadzenCard>
     </EditForm>
 
-
+<button type="button" @onclick="EditDriver">Generate XML file</button>
 
 
 @if (driverListXML != null)
@@ -62,7 +62,7 @@
 
     public List<XElement> driverListXML = new List<XElement>();
     public List<Driver> driverList = new List<Driver>();
-    
+
     List<PresetList> presetList = new();
     public string xmlOutput = string.Empty;
     Driver Person = new Driver();
@@ -124,6 +124,7 @@
     public async Task  SaveDriver()
     {
         Driver driver = (Driver)Person.Clone();
+        driver.guid = Guid.NewGuid();
         XElement element = new XElement("driver",
      new XAttribute("livery_name", driver.livery_name));
         element.Add(new XElement("name", driver.name));
@@ -133,6 +134,10 @@
         driverListXML.Add(element);
         driverList.Add(driver);
 
+    }
+
+    public async Task EditDriver(){
+        Person = driverList.ElementAt(1);
     }
 
  

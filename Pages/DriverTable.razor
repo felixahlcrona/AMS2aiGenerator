@@ -6,6 +6,7 @@
 <RadzenDataGrid @ref="Grid" AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="5" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                 Data="@driverList" TItem="Driver" ColumnWidth="100px" LogicalFilterOperator="LogicalFilterOperator.Or">
         <Columns>
+        <RadzenDataGridColumn TItem="Driver" Property="guid" Title="livery_name" />
         <RadzenDataGridColumn TItem="Driver" Property="livery_name" Title="livery_name" />
         <RadzenDataGridColumn TItem="Driver" Property="name" Title="name" Frozen="true"  />
         <RadzenDataGridColumn TItem="Driver" Property="country" Title="First Name" />
