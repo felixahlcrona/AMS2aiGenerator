@@ -23,13 +23,33 @@
 
     <DriverTable driverList="@driverList"/>
 }
+
 <EditForm Model=@Person>
-    <label>livery_name</label>
-    <InputText @bind-Value=Person.livery_name />
-    <label>name</label>
-    <InputText  @bind-Value=Person.name  />
-    <label>country</label>
-    <InputText @bind-Value=Person.country />
+
+
+
+    <RadzenCard>
+
+       <div class="col-md-8">   
+    <RadzenLabel Text="livery" />
+    <RadzenTextBox @bind-Value=Person.livery_name />
+
+        <RadzenLabel Text="name" />
+        <RadzenTextBox  @bind-Value=Person.name />
+        <RadzenLabel Text="country" />
+        <RadzenTextBox  @bind-Value=Person.country />
+
+ 
+
+        </div>
+        <RadzenLabel Text="race skill" />
+        @Person.race_skill
+        <RadzenSlider @bind-Value=@Person.race_skill TValue="float" Min="0" Max="1" Step="0.01" />
+
+        <RadzenLabel Text="qualifying skill " />
+        @Person.qualifying_skill
+        <RadzenSlider @bind-Value=@Person.qualifying_skill TValue="float" Min="0" Max="1" Step="0.01" />
+    </RadzenCard>
     <input type="submit" onclick="@SaveDriver" class="btn btn-primary" />
 </EditForm>
 
@@ -76,6 +96,7 @@
      new XAttribute("livery_name", driver.livery_name));
         element.Add(new XElement("name", driver.name));
         element.Add(new XElement("country", driver.country));
+        element.Add(new XElement("age", driver.race_skill));
 
         driverListXML.Add(element);
         driverList.Add(driver);
