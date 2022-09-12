@@ -3,17 +3,17 @@
 
 
 
-<RadzenDataGrid @ref="Grid" AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="5" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+<RadzenDataGrid @ref="Grid" AllowFiltering="true" AllowColumnResize="true" AllowSorting="true" PageSize="35" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                 Data="@driverList" TItem="Driver" ColumnWidth="100px" LogicalFilterOperator="LogicalFilterOperator.Or">
-        <Columns>
+    <Columns>
         <RadzenDataGridColumn TItem="Driver" Property="guid" Title="livery_name" />
         <RadzenDataGridColumn TItem="Driver" Property="livery_name" Title="livery_name" />
-        <RadzenDataGridColumn TItem="Driver" Property="name" Title="name" Frozen="true"  />
+        <RadzenDataGridColumn TItem="Driver" Property="name" Title="name" Frozen="true" />
         <RadzenDataGridColumn TItem="Driver" Property="country" Title="First Name" />
         <RadzenDataGridColumn TItem="Driver" Property="race_skill" Title="race_skill" />
         <RadzenDataGridColumn TItem="Driver" Property="qualifying_skill" Title="qualifying_skill" />
-        </Columns>
-    </RadzenDataGrid>
+    </Columns>
+</RadzenDataGrid>
 @code {
     [Parameter] public List<Driver> driverList { get; set; }
     public RadzenDataGrid<Driver> Grid;
@@ -22,7 +22,7 @@
     {
 
     }
-  
+
     //protected override async Task OnParametersSetAsync()
     //{
 
@@ -30,16 +30,16 @@
     //}
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-       
+
         if (firstRender)
         {
-         
+
         }
         else
         {
             await Grid.Reload();
-       // await Grid.Reload();
-        } 
+            // await Grid.Reload();
+        }
     }
 
 }
