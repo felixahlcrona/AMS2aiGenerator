@@ -199,6 +199,14 @@
             ValidationMessage = $"A livery needs to be selected";
             return false;
         }
+        //var repeatedLiveryName = driverList.GroupBy(x => x.livery_name).Where(g => g.Count() == 1)?.FirstOrDefault()?.Key;
+        //int repeatedLivery = driverList.GroupBy(x => x.livery_name).Where(g => g.Count() == 1).Count();
+        if (driverList.Any(n => n.livery_name == Person.livery_name))
+        {
+            ModelIsValid = false;
+            ValidationMessage = $"You can only have one unique livery {Person.livery_name} needs to be changed ";
+            return false;
+        }
         if (Person.car is null)
         {
             ModelIsValid = false;
