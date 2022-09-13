@@ -1,4 +1,6 @@
-﻿namespace AMS2aiGenerator.Models
+﻿using System.ComponentModel;
+
+namespace AMS2aiGenerator.Models
 {
     public class Driver
     {
@@ -23,6 +25,7 @@
         public float wet_skill { get; set; }
         public float tyre_management { get; set; }
         public float blue_flag_conceding { get; set; }
+        [DisplayName("Weather tyre changes")]
         public float weather_tyre_changes { get; set; }
 
     }
@@ -36,5 +39,6 @@
         public string drivers { get; set; }
         public string countries { get; set; }
         public string liveries { get; set; }
+        public string xmlFileName { get; set; }
     }
 }

@@ -7,17 +7,29 @@
                 Data="@driverList" TItem="Driver" ColumnWidth="100px" LogicalFilterOperator="LogicalFilterOperator.Or">
     <Columns>
         @*       <RadzenDataGridColumn TItem="Driver" Property="guid" Title="livery_name" />*@
-        <RadzenDataGridColumn TItem="Driver" Property="livery_name" Title="livery_name" />
-        <RadzenDataGridColumn TItem="Driver" Property="name" Title="name" Frozen="true" />
+        <RadzenDataGridColumn TItem="Driver" Property="livery_name" Title="Livery_name" />
+        <RadzenDataGridColumn TItem="Driver" Property="name" Title="Name" Frozen="true" />
         <RadzenDataGridColumn TItem="Driver" Property="country" Title="First Name" />
-        <RadzenDataGridColumn TItem="Driver" Property="race_skill" Title="race_skill" />
-        <RadzenDataGridColumn TItem="Driver" Property="qualifying_skill" Title="qualifying_skill" />
+        <RadzenDataGridColumn TItem="Driver" Property="race_skill" Title="race skill" />
+        <RadzenDataGridColumn TItem="Driver" Property="qualifying_skill" Title="Qualifying skill" />
+        <RadzenDataGridColumn TItem="Driver" Property="aggression" Title="Aggression" />
+        <RadzenDataGridColumn TItem="Driver" Property="stamina" Title="Stamina" />
+        <RadzenDataGridColumn TItem="Driver" Property="start_reactions" Title="Start reactions" />
+        <RadzenDataGridColumn TItem="Driver" Property="wet_skill" Title="Wet skill" />
+        <RadzenDataGridColumn TItem="Driver" Property="tyre_management" Title="Tyre management" />
+        <RadzenDataGridColumn TItem="Driver" Property="blue_flag_conceding" Title="Blue flag conceding" />
+        <RadzenDataGridColumn TItem="Driver" Property="weather_tyre_changes" Title="Weather tyre changes" />
+
+        @* @foreach (var item in d.GetType().GetProperties())
+            {
+            <RadzenDataGridColumn TItem="Driver" Property="@item.Name" Title="@item.Name" />
+            }*@
     </Columns>
 </RadzenDataGrid>
 @code {
     [Parameter] public List<Driver> driverList { get; set; }
     public RadzenDataGrid<Driver> Grid;
-
+    public Driver d = new();
     protected override void OnInitialized()
     {
 
